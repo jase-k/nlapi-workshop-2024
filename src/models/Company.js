@@ -1,0 +1,37 @@
+// src/models/Company.js
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Company:
+ *       type: object
+ *       required:
+ *         - name
+ *       properties:
+ *         id:
+ *           type: integer
+ *           description: Auto-generated ID
+ *         name:
+ *           type: string
+ *           description: Company name
+ *         address:
+ *           type: string
+ *           description: Company address
+ *       example:
+ *         name: Acme Corp
+ *         address: 123 Business Rd.
+ */
+const Company = sequelize.define('Company', {
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  address: {
+    type: DataTypes.STRING,
+  },
+});
+
+module.exports = Company;
