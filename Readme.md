@@ -18,7 +18,7 @@ This repository is designed for a coding bootcamp workshop, showing how to integ
 - **Node.js**: JavaScript runtime environment.
 - **Express.js**: Web application framework for Node.js.
 - **Sequelize**: ORM (Object-Relational Mapper) for PostgreSQL.
-- **PostgreSQL**: Relational database.
+- **PostgreSQL**: Relational database. + PGVector (Vector Search) + TGRM (Fuzzy Search)
 - **JWT (jsonwebtoken)**: User authentication via JSON Web Tokens.
 - **Bcrypt**: Password hashing.
 - **Swagger**: Auto-generated API documentation with OpenAPI specification.
@@ -63,14 +63,14 @@ my-app/
 ### Prerequisites:
 - Node.js (v14 or higher): Download and install Node.js
 - PostgreSQL: Make sure PostgreSQL is installed and running. Download PostgreSQL
-### Backend Setup
+
 ### Backend Setup
 
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/your-username/your-repo.git
-    cd your-repo
+    git clone git@github.com:jase-k/nlapi-workshop-2024.git
+    cd nlapi-workshop-2024
     ```
 
 2. **Install backend dependencies:**
@@ -84,7 +84,7 @@ my-app/
     Create a `.env` file in the root directory and add the following content:
 
     ```bash
-    DB_NAME=my_database
+    DB_NAME=sample_db
     DB_USER=my_username
     DB_PASSWORD=my_password
     DB_HOST=localhost
@@ -92,14 +92,13 @@ my-app/
     JWT_SECRET=my_jwt_secret
     ```
 
-    Make sure to replace `my_database`, `my_username`, `my_password`, and `my_jwt_secret` with your actual PostgreSQL credentials and a secret key for JWT.
+    Make sure to replace `sample_db`, `my_username`, `my_password`, and `my_jwt_secret` with your actual PostgreSQL credentials and a secret key for JWT.
 
 4. **Set up the PostgreSQL database:**
 
-    Ensure your PostgreSQL server is running. Then, create a new database with the name you provided in the `.env` file (e.g., `my_database`).
+    Ensure your PostgreSQL server is running. Then, create a new database with the name you provided in the `.env` file (e.g., `sample_db`).
 
     The following command will:
-    - Wait for 3 seconds to ensure any previous processes are settled.
     - Run a new PostgreSQL container named `pg` with the specified environment variables for database name, user, and password.
     - Map the container's port 5432 to the host's port 5444.
     - Load the `pg_trgm` extension for PostgreSQL.
@@ -107,7 +106,7 @@ my-app/
     - Execute a command inside the running container to create the `pg_trgm` extension if it doesn't already exist.
 
     ```bash
-    sleep 3 && docker run -d --name pg -e POSTGRES_DB=sample_db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -p 5444:5432 postgres:latest -c 'shared_preload_libraries=pg_trgm' && sleep 3 && docker exec pg psql -U postgres -d sample_db -c 'CREATE EXTENSION IF NOT EXISTS pg_trgm;'
+    docker run -d --name pg -e POSTGRES_DB=sample_db -e POSTGRES_USER=my_username -e POSTGRES_PASSWORD=my_password -p 5444:5432 postgres:latest -c 'shared_preload_libraries=pg_trgm' && sleep 3 && docker exec pg psql -U my_username -d sample_db -c 'CREATE EXTENSION IF NOT EXISTS pg_trgm;'
     ```
 
 5. **Sync the database and run the server:**
@@ -117,6 +116,9 @@ my-app/
     ```
 
     This will start the Express server with Nodemon (for hot-reloading) and sync the database with Sequelize models.
+
+6. **Confirm Backend is Working:**
+Navigate to localhost:3303/api-docs and you should see your swagger docs. 
 
 ### Frontend Setup
 
@@ -150,30 +152,6 @@ my-app/
 
     This will start the React app in development mode and open it in your browser at `http://localhost:3000`.
 
-### Running the Application
-
-To run the entire application (both backend and frontend):
-
-1. **Backend:**
-
-    In the root of the project, run:
-
-    ```bash
-    npm run dev
-    ```
-
-    This starts the backend server on `http://localhost:3000`.
-
-2. **Frontend:**
-
-    In a separate terminal, navigate to the client folder and run:
-
-    ```bash
-    cd client
-    npm start
-    ```
-
-    This starts the frontend server (React) and proxies API requests to the backend.
 
 ### API Documentation
 
@@ -188,41 +166,9 @@ The backend API is automatically documented using Swagger. To view the API docum
 2. **Open your browser and navigate to:**
 
     ```bash
-    http://localhost:3000/api-docs
+    http://localhost:3303/api-docs
     ```
 
     Here, you can view and test all the available API endpoints directly from the Swagger UI.
 
-### Project Features
 
-**User Authentication**
-
-- Register: `POST /api/users/register`
-- Login: `POST /api/users/login`
-- Get Profile: `GET /api/users/profile` (requires JWT token)
-
-**Company Management**
-
-- Create a Company: `POST /api/companies`
-- Get All Companies: `GET /api/companies`
-- Get a Company by ID: `GET /api/companies/:id`
-
-### Contributing
-
-Contributions are welcome! To contribute:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Make your changes and commit them (`git commit -m 'Add feature'`).
-4. Push to the branch (`git push origin feature-branch`).
-5. Open a Pull Request.
-
-### License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-### Contact
-
-For any questions or feedback, feel free to reach out to the repository owner.
-
-With this README.md, your repository will be well-documented, and users will have clear instructions on how to set up and run the project, as well as an understanding of the technologies and structure used in the application. Let me know if you'd like to adjust or add more details!
