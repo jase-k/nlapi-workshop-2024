@@ -29,8 +29,8 @@ const bcrypt = require('bcrypt');
  *           type: integer
  *           description: ID of the company the user belongs to
  *       example:
- *         name: Jane Doe
- *         email: jane.doe@example.com
+ *         name: Bugs Bunny
+ *         email: bugs.bunny@example.com
  *         companyId: 1
  *     UserRegister:
  *       type: object
@@ -48,9 +48,9 @@ const bcrypt = require('bcrypt');
  *           type: string
  *           description: User's password
  *       example:
- *         name: Jane Doe
- *         email: jane.doe@example.com
- *         password: StrongPassword123
+ *         name: Bugs Bunny
+ *         email: bugs.bunny@example.com
+ *         password: CarrotLover123
  */
 const User = sequelize.define('User', {
   name: {
