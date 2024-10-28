@@ -1,10 +1,22 @@
 // src/controllers/companyController.js
 const Company = require('../models/Company');
+const User = require('../models/User'); // Ensure User model is imported
 
 // Create a new company
 exports.createCompany = async (req, res) => {
   try {
-    const company = await Company.create(req.body);
+    const companyData = {
+      ...req.body
+    };
+    const company = await Company.create(companyData);
+
+    // Update the user's companyId
+    const user = await User.findByPk(req.user.id);
+    if (user) {
+      user.companyId = company.id;
+      await user.save();
+    }
+
     res.status(201).json(company);
   } catch (err) {
     res.status(500).json({ error: err.message });

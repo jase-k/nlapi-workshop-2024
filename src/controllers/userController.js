@@ -3,6 +3,7 @@ require('dotenv').config();
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const { where } = require('sequelize');
 
 // Register a new user
 exports.register = async (req, res) => {
@@ -58,4 +59,10 @@ exports.getProfile = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+};
+
+// Get all users
+exports.getAllUsers = async (req, res) => {
+  const users = await User.findAll({ where: { companyId: req.user.companyId } });
+  res.json(users);
 };

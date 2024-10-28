@@ -22,7 +22,7 @@ const authenticateToken = require('../middlewares/authenticate');
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/User'
+ *             $ref: '#/components/schemas/UserRegister'
  *     responses:
  *       201:
  *         description: User registered successfully
@@ -42,14 +42,7 @@ router.post('/register', userController.register);
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *                 example: jane.doe@example.com
- *               password:
- *                 type: string
- *                 example: StrongPassword123
+ *             $ref: '#/components/schemas/UserRegister'
  *     responses:
  *       200:
  *         description: Login successful
@@ -73,5 +66,27 @@ router.post('/login', userController.login);
  *         description: Unauthorized
  */
 router.get('/profile', authenticateToken, userController.getProfile);
+
+
+/**
+ * @swagger
+ * /api/users:
+ *   get:
+ *     summary: Get all users
+ *     tags: [Users]
+ *     responses:
+ *       200:
+ *         description: A list of users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User'
+ *       401:
+ *         description: Unauthorized
+ */
+router.get('/', authenticateToken, userController.getAllUsers);
+
 
 module.exports = router;

@@ -29,7 +29,7 @@ const authenticateToken = require('../middlewares/authenticate');
  *       201:
  *         description: Company created successfully
  *       401:
- *         description: Unauthorized
+ *         description: Unauthenticated
  */
 router.post('/', authenticateToken, companyController.createCompany);
 

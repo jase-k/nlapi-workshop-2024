@@ -25,12 +25,28 @@ const bcrypt = require('bcrypt');
  *         email:
  *           type: string
  *           description: User's email
- *         password:
- *           type: string
- *           description: User's password
  *         companyId:
  *           type: integer
  *           description: ID of the company the user belongs to
+ *       example:
+ *         name: Jane Doe
+ *         email: jane.doe@example.com
+ *         companyId: 1
+ *     UserRegister:
+ *       type: object
+ *       required:
+ *         - email
+ *         - password
+ *       properties:
+ *         name:
+ *           type: string
+ *           description: User's name
+ *         email:
+ *           type: string
+ *           description: User's email
+ *         password:
+ *           type: string
+ *           description: User's password
  *       example:
  *         name: Jane Doe
  *         email: jane.doe@example.com
@@ -53,8 +69,8 @@ const User = sequelize.define('User', {
 });
 
 // Relationships
-User.belongsTo(Company);
-Company.hasMany(User);
+User.belongsTo(Company, { foreignKey: 'companyId' });
+Company.hasMany(User, { foreignKey: 'companyId' });
 
 // Hooks
 User.beforeCreate(async (user, options) => {
