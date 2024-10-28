@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
-    "sync-db": "node scripts/sync-db.js"
+    "start": "npm run kill-port && node src/server.js",
+    "dev": "npm run kill-port && nodemon src/server.js",
+    "sync-db": "node scripts/sync-db.js",
+    "kill-port": "npx kill-port 3303"
   },
   "keywords": [],
   "author": "",

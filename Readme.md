@@ -98,8 +98,16 @@ my-app/
 
     Ensure your PostgreSQL server is running. Then, create a new database with the name you provided in the `.env` file (e.g., `my_database`).
 
+    The following command will:
+    - Wait for 3 seconds to ensure any previous processes are settled.
+    - Run a new PostgreSQL container named `pg` with the specified environment variables for database name, user, and password.
+    - Map the container's port 5432 to the host's port 5444.
+    - Load the `pg_trgm` extension for PostgreSQL.
+    - Wait for another 3 seconds to ensure the container is fully up and running.
+    - Execute a command inside the running container to create the `pg_trgm` extension if it doesn't already exist.
+
     ```bash
-    createdb my_database
+    sleep 3 && docker run -d --name pg -e POSTGRES_DB=sample_db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -p 5444:5432 postgres:latest -c 'shared_preload_libraries=pg_trgm' && sleep 3 && docker exec pg psql -U postgres -d sample_db -c 'CREATE EXTENSION IF NOT EXISTS pg_trgm;'
     ```
 
 5. **Sync the database and run the server:**
