@@ -28,6 +28,10 @@ const authenticateToken = require('../middlewares/authenticate');
  *     responses:
  *       201:
  *         description: Company created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Company'
  *       401:
  *         description: Unauthenticated
  */
@@ -41,7 +45,13 @@ router.post('/', authenticateToken, companyController.createCompany);
  *     tags: [Companies]
  *     responses:
  *       200:
- *         description: A list of companies
+ *         description: A list of Company objects
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Company'
  */
 router.get('/', companyController.getAllCompanies);
 
@@ -60,7 +70,11 @@ router.get('/', companyController.getAllCompanies);
  *         description: Company ID
  *     responses:
  *       200:
- *         description: Company data
+ *         description: A single Company object
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Company'
  *       404:
  *         description: Company not found
  */

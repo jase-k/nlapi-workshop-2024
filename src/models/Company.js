@@ -21,6 +21,7 @@ const sequelize = require('../config/database');
  *           type: string
  *           description: Company address
  *       example:
+ *         id: 1
  *         name: Looney Tunes Inc.
  *         address: 123 Business Rd.
  */
