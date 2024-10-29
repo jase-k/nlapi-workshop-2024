@@ -4,6 +4,9 @@ const app = express();
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const cors = require("cors");
+const fs = require("fs");
+const path = require("path");
+
 app.use(cors());
 // Swagger options
 const swaggerOptions = {
@@ -39,6 +42,10 @@ const swaggerOptions = {
   
 // Initialize Swagger JSDoc
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
+
+// Save the latest swagger docs to a file
+const swaggerOutputPath = path.join(__dirname, '../swagger.json');
+fs.writeFileSync(swaggerOutputPath, JSON.stringify(swaggerDocs, null, 2), 'utf-8');
 
 // Swagger UI setup
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
