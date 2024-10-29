@@ -37,7 +37,8 @@ const SignUpPage = () => {
     e.preventDefault();
     // Handle sign-up logic (e.g., API request)
     // After successful sign-up:
-    navigate('/dashboard');
+    // navigate('/dashboard');
+    alert('Not implemented yet');
   };
 
   return (

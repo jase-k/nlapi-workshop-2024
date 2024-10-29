@@ -34,9 +34,20 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle login logic (e.g., API request)
-    // After successful login:
-    navigate('/dashboard');
+    fetch("http://localhost:3303/api/session/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Login successful:", data);
+        navigate("/dashboard");
+      })
+      .catch((error) => {
+        console.error("Login failed:", error);
+        alert("Invalid email or password");
+      });
   };
 
   return (

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Container, Typography, Box, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
+import CompanyDetails from '../components/CompanyDetails';
 const DashboardPage = () => {
   const navigate = useNavigate();
 
@@ -22,6 +22,7 @@ const DashboardPage = () => {
             Logout
           </Button>
         </Box>
+        <CompanyDetails />
       </Box>
     </Container>
   );
