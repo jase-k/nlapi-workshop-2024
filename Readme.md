@@ -6,12 +6,12 @@ This repository is designed for a coding bootcamp workshop, showing how to integ
 - [Features](#features)
 - [Folder Structure](#folder-structure)
 - [Installation and Setup](#installation-and-setup)
-  - [Backend Setup](#backend-setup)
-  - [Frontend Setup](#frontend-setup)
+- [Backend](#backend)
+- [Frontend](#frontend)
 - [Running the Application](#running-the-application)
 - [API Documentation](#api-documentation)
-- [Contributing](#contributing)
-- [License](#license)
+- [Getting NLAPI Api key](#getting-your-nlapi-key)
+
 
 ## Backend
 
@@ -118,7 +118,8 @@ my-app/
     This will start the Express server with Nodemon (for hot-reloading) and sync the database with Sequelize models.
 
 6. **Confirm Backend is Working:**
-Navigate to localhost:3303/api-docs and you should see your swagger docs. 
+Navigate to localhost:3303/api-docs and you should see your swagger docs.
+
 
 ### Frontend Setup
 
@@ -172,3 +173,89 @@ The backend API is automatically documented using Swagger. To view the API docum
     Here, you can view and test all the available API endpoints directly from the Swagger UI.
 
 
+## Getting your NLAPI Key
+
+Run the following commands: 
+**1. Login or Signup**
+```bash
+# Login - Replace name, email, password
+curl -X 'POST' \
+  'https://api.nlapi.io/portal/sessions/login' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "string",
+  "email": "user@example.com",
+  "password": "string"
+}'
+```
+Or
+```bash
+# Sign Up - Replace name, email, password
+curl -X 'POST' \
+  'https://api.nlapi.io/portal/sessions/signup' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "string",
+  "email": "user@example.com",
+  "password": "string"
+}'
+```
+save your developer id for step 2.B
+
+**2. A) Setup ngrok**
+Create a free account at [ngrok.com](https://ngrok.com)  
+Follow Instrustions at [https://dashboard.ngrok.com/get-started/setup](https://dashboard.ngrok.com/get-started/setup) to set up grok 
+
+Run `ngrok http 3303` 
+
+Save the forwarding url for the next step 
+
+**2. B) Create an Application**
+```bash
+curl -X 'POST' \
+  'https://api.nlapi.io/portal/applications' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "My Next Gen Application",
+  "api_url": "your-forwarded address"
+  "description" : "Implementing the NLAPI via the NLAPI Workshop!"
+  "api_type": "openapi",
+  "developer_id": your-dev-id
+}'
+```
+With a local application we will need to use an ngrok tunnel to send data to your local environment. If you don't have a free ngrok plan you will have to update your application's api_url each time you start the ngrok server. 
+
+Save your application_id for step 3 & 4
+
+**3. Upload Schema File**
+
+Example: 
+```bash
+curl --location --globoff 'https://api.nlapi.io/portal/schemas' \
+--header 'Authorization: Bearer [your-access-token]' \
+--header 'Content-Type: multipart/form-data' \
+--form 'file=@"~/Desktop/schema.json"' \ # Replace with your file 
+--form 'application_id="your_application_id"' \
+--form 'name="your_schema_name"' 
+```
+*Note -> If you upload another schema with the same name it will replace it for your application if it's different than the current schema. This will make your application version increase by 1. If you upload the exact same schema, you'll get a 202 response and no new version will be produced. If you upload a schema with a name currently not attached to your application, it will update your application version and add those endpoints to the application.*
+
+**4. Create Api-Key**
+```bash
+curl --location --globoff 'https://api.nlapi.io/portal/api-keys' \
+--header 'Authorization: Bearer [your-access-token]' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "application_id": "your_application_id"
+}'
+```
+
+
+**5. Save Api-Key to your .env**
+
+`NLAPI_API_KEY=nlapi_api_key`
+
+Now you are ready to start sending natural language commands! 
