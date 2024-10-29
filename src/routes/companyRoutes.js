@@ -16,7 +16,7 @@ const authenticateToken = require('../middlewares/authenticate');
  * /api/companies:
  *   post:
  *     summary: Create a new company
- *     tags: [Companies]
+ *     tags: [Companies, no-nlapi]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
