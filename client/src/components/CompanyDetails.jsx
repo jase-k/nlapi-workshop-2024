@@ -27,10 +27,12 @@ const CompanyDetails = () => {
         <List>
           {companies.map((company) => (
             <ListItem key={company.id}>
-              <ListItemText
-                primary={company.name}
-                secondary={company.address}
-              />
+              <Box textAlign="center" width="100%">
+                <ListItemText
+                  primary={company.name}
+                  secondary={company.address}
+                />
+              </Box>
             </ListItem>
           ))}
         </List>
