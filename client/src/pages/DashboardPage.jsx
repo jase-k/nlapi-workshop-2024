@@ -24,8 +24,9 @@ const DashboardPage = () => {
   const classes = useStyles();
 
   return (
-    <Container maxWidth="md" className={classes.container}>
-      <Box mt={8}>
+    <>
+      <Container maxWidth="md" className={classes.container}>
+        <Box mt={8}>
         <Typography variant="h4" align="center" gutterBottom>
           Welcome to the Dashboard!
         </Typography>
@@ -35,8 +36,9 @@ const DashboardPage = () => {
           </Button>
         </Box>
         <CompanyDetails />
-      </Box>
-    </Container>
+        </Box>
+      </Container>
+    </>
   );
 };
 
