@@ -1,5 +1,5 @@
-// src/pages/LoginPage.js
-import React, { useState } from 'react';
+// src/pages/SignUpPage.js
+import { useState } from 'react';
 import { Container, TextField, Button, Box, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LoginPage = () => {
+const SignUpPage = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -34,29 +35,28 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3303/api/session/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Login successful:", data);
-        navigate("/dashboard");
-      })
-      .catch((error) => {
-        console.error("Login failed:", error);
-        alert("Invalid email or password");
-      });
+    // Handle sign-up logic (e.g., API request)
+    // After successful sign-up:
+    // navigate('/dashboard');
+    alert('Not implemented yet');
   };
 
   return (
     <Container maxWidth="sm" className={classes.container}>
       <Box mt={8}>
         <Typography variant="h4" align="center" gutterBottom className={classes.title}>
-          Login
+          Sign Up
         </Typography>
         <form onSubmit={handleSubmit}>
+          <TextField
+            label="Name"
+            fullWidth
+            margin="normal"
+            variant="outlined"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
           <TextField
             label="Email"
             fullWidth
@@ -78,15 +78,15 @@ const LoginPage = () => {
           />
           <Box mt={3}>
             <Button type="submit" variant="contained" color="primary" fullWidth className={classes.button}>
-              Login
+              Sign Up
             </Button>
           </Box>
         </form>
         <Box mt={2} display="flex" justifyContent="center">
           <Typography>
-            Don’t have an account?{' '}
-            <Button color="primary" onClick={() => navigate('/signup')} className={classes.link}>
-              Sign Up
+            Already have an account?{' '}
+            <Button color="primary" onClick={() => navigate('/login')} className={classes.link}>
+              Login
             </Button>
           </Typography>
         </Box>
@@ -95,4 +95,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignUpPage;
