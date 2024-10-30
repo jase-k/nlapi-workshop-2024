@@ -220,8 +220,8 @@ curl -X 'POST' \
   -H 'Content-Type: application/json' \
   -d '{
   "name": "My Next Gen Application",
-  "api_url": "your-forwarded address"
-  "description" : "Implementing the NLAPI via the NLAPI Workshop!"
+  "api_url": "your-forwarded address",
+  "description" : "Implementing the NLAPI via the NLAPI Workshop!",
   "api_type": "openapi",
   "developer_id": your-dev-id
 }'
@@ -237,19 +237,19 @@ Example:
 curl --location --globoff 'https://api.nlapi.io/portal/schemas' \
 --header 'Authorization: Bearer [your-access-token]' \
 --header 'Content-Type: multipart/form-data' \
---form 'file=@"~/Desktop/schema.json"' \ # Replace with your file 
---form 'application_id="your_application_id"' \
---form 'name="your_schema_name"' 
+--form 'file=@"swagger.json"' \
+--form 'application_id=your-application-id' \
+--form 'name="your_schema_name"'
 ```
 *Note -> If you upload another schema with the same name it will replace it for your application if it's different than the current schema. This will make your application version increase by 1. If you upload the exact same schema, you'll get a 202 response and no new version will be produced. If you upload a schema with a name currently not attached to your application, it will update your application version and add those endpoints to the application.*
 
 **4. Create Api-Key**
 ```bash
 curl --location --globoff 'https://api.nlapi.io/portal/api-keys' \
---header 'Authorization: Bearer [your-access-token]' \
+--header 'Authorization: Bearer [your-auth-token]' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-  "application_id": "your_application_id"
+  "application_id": your-application-id
 }'
 ```
 
