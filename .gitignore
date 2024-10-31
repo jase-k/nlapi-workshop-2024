@@ -1,3 +1,4 @@
 node_modules
 .env
-swagger.json
+*.swagger.json
+
