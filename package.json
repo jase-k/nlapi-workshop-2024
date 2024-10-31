@@ -8,7 +8,8 @@
     "dev": "npm run kill-port && nodemon src/server.js",
     "sync-db": "node scripts/sync-db.js",
     "kill-port": "npx kill-port 3303",
-    "seed": "node scripts/seed.js"
+    "seed": "node scripts/seed.js",
+    "update-application-url": "node scripts/update-application-url.js"
   },
   "keywords": [],
   "author": "",
