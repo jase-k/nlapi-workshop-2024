@@ -7,6 +7,8 @@ const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
 
+require('dotenv').config();
+
 app.use(cors());
 // Swagger options
 const swaggerOptions = {
@@ -44,7 +46,9 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 // Save the latest swagger docs to a file
-const swaggerOutputPath = path.join(__dirname, '../swagger.json');
+const swaggerFileName = process.env.NLAPI_SCHEMA_NAME;
+console.log("swaggerFileName", swaggerFileName);
+const swaggerOutputPath = path.join(__dirname, `../${swaggerFileName}.swagger.json`);
 fs.writeFileSync(swaggerOutputPath, JSON.stringify(swaggerDocs, null, 2), 'utf-8');
 
 // Swagger UI setup
