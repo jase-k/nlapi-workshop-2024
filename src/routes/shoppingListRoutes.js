@@ -23,10 +23,14 @@ const authenticateToken = require('../middlewares/authenticate');
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/ShoppingListItem'
+ *             $ref: '#/components/schemas/ShoppingListItemInput'
  *     responses:
  *       201:
  *         description: Shopping list item created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ShoppingListItem'
  *       401:
  *         description: Unauthenticated
  */

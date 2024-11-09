@@ -6,7 +6,7 @@ const Company = require('./Company');
  * @swagger
  * components:
  *   schemas:
- *     ShoppingListItem:
+ *     ShoppingListItemInput:
  *       type: object
  *       required:
  *         - recipeIngredientId
@@ -20,12 +20,39 @@ const Company = require('./Company');
  *         isPurchased:
  *           type: boolean
  *           description: Whether the item has been purchased
- *         companyId:
- *           type: integer
- *           description: ID of the company the shopping list belongs to
  *       example:
  *         recipeIngredientId: 1
- *         companyId: 1
+ *     ShoppingListItem:
+ *       type: object
+ *       required:
+ *         - recipeIngredientId
+ *       properties:
+ *         id:
+ *           type: integer
+ *           description: Auto-generated ID
+ *         ingredientName:
+ *           type: string
+ *           description: Name of the ingredient
+ *         quantity:
+ *           type: string
+ *           description: Quantity of the ingredient
+ *         unitOfMeasure:
+ *           type: string
+ *           description: Unit of measure for the ingredient
+ *         isPurchased:
+ *           type: boolean
+ *           description: Whether the item has been purchased
+ *         recipes:
+ *           type: array
+ *           description: Recipes that contain the ingredient
+ *           items:
+ *             type: string
+ *       example:
+ *         ingredientName: Tomato
+ *         quantity: 300
+ *         unitOfMeasure: "g"
+ *         isPurchased: false
+ *         recipes: ["Spaghetti Bolognese", "Tomato Soup"]
  */
 const ShoppingListItem = sequelize.define('shopping_list_items', {
   recipeIngredientId: {
