@@ -4,13 +4,12 @@ import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import DashboardPage from './pages/DashboardPage';
 import ChatBubble from './components/ChatBubble';
-import React from 'react';
 
 const AppLayout = () => {
   const location = useLocation();
   
   // Define routes where ChatBubble should NOT be displayed
-  const excludedRoutes = ['/login', '/signup'];
+  const excludedRoutes = ['/login', '/signup', '/'];
   
   // Determine if the current route is excluded
   const hideChatBubble = excludedRoutes.includes(location.pathname);
