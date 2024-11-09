@@ -6,9 +6,33 @@ const RecipeIngredient = require('./RecipeIngredient');
  * @swagger
  * components:
  *   schemas:
+ *     RecipeInput:
+ *       type: object
+ *       required:
+ *         - title
+ *         - ingredients
+ *         - instructions
+ *       properties:
+ *         title:
+ *           type: string
+ *           description: Title of the recipe
+ *         instructions:
+ *           type: string
+ *         recipeIngredients:
+ *           type: array
+ *           description: Ingredients required for the recipe
+ *           items:
+ *            oneOf:
+ *              - $ref: '#/components/schemas/RecipeIngredientInputCreateIngredient'
+ *              - $ref: '#/components/schemas/RecipeIngredientInput'
+ *       example:
+ *         title: Spaghetti Bolognese
+ *         recipeIngredients: [{ingredientId: 1, quantity: 2}, {ingredient_name: Tomato, quantity: 200, unitOfMeasure: "grams"}]
+ *         instructions: Cook spaghetti, prepare sauce, mix together
  *     Recipe:
  *       type: object
  *       required:
+ *         - id
  *         - title
  *         - ingredients
  *         - instructions
@@ -19,20 +43,18 @@ const RecipeIngredient = require('./RecipeIngredient');
  *         title:
  *           type: string
  *           description: Title of the recipe
- *         ingredients:
- *           type: string
- *           description: Ingredients required for the recipe
- *         instructions:
- *           type: string
- *           description: Cooking instructions
  *         recipeIngredients:
  *           type: array
  *           description: Ingredients required for the recipe
  *           items:
  *             $ref: '#/components/schemas/RecipeIngredient'
+ *         instructions:
+ *           type: string
+ *           description: Cooking instructions
  *       example:
+ *         id: 1
  *         title: Spaghetti Bolognese
- *         ingredients: Spaghetti, minced meat, tomato sauce
+ *         recipeIngredients: [{id: 1, ingredient: {id: 1, name: "Tomato"}, quantity: 2}, {id: 2, ingredient: {id: 2, name: "Spaghetti"}, quantity: 1}]
  *         instructions: Cook spaghetti, prepare sauce, mix together
  */
 const Recipe = sequelize.define('recipes', {
