@@ -52,7 +52,7 @@ const bcrypt = require('bcrypt');
  *         email: bugs.bunny@example.com
  *         password: CarrotLover123
  */
-const User = sequelize.define('User', {
+const User = sequelize.define('users', {
   name: {
     type: DataTypes.STRING,
     allowNull: false,

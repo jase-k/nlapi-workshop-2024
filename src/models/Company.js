@@ -25,7 +25,7 @@ const sequelize = require('../config/database');
  *         name: Looney Tunes Inc.
  *         address: 123 Business Rd.
  */
-const Company = sequelize.define('Company', {
+const Company = sequelize.define('companies', {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
