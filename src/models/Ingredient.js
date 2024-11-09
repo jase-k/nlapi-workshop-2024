@@ -8,6 +8,7 @@ const RecipeIngredient = require('./RecipeIngredient');
  *     Ingredient:
  *       type: object
  *       required:
+ *         - id
  *         - name
  *       properties:
  *         id:
@@ -17,8 +18,19 @@ const RecipeIngredient = require('./RecipeIngredient');
  *           type: string
  *           description: Name of the ingredient
  *       example:
+ *         id: 1
  *         name: Tomato
- */
+ *     IngredientInput:
+ *       type: object
+ *       required:
+ *         - name
+ *       properties:
+ *         name:
+ *           type: string
+ *           description: Name of the ingredient
+ *       example:
+ *         name: Tomato
+*/
 const Ingredient = sequelize.define('ingredients', {
   name: {
     type: DataTypes.STRING,

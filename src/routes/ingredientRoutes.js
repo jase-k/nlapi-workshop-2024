@@ -23,10 +23,14 @@ const authenticateToken = require('../middlewares/authenticate');
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Ingredient'
+ *             $ref: '#/components/schemas/IngredientInput'
  *     responses:
  *       201:
  *         description: Ingredient created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Ingredient'
  *       401:
  *         description: Unauthenticated
  */
