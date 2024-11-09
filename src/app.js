@@ -62,10 +62,16 @@ const userRoutes = require("./routes/userRoutes");
 const companyRoutes = require("./routes/companyRoutes");
 const sessionRoutes = require("./routes/sessionRoutes");
 const nlapiRoutes = require("./routes/nlapiRoutes");
+const recipeRoutes = require("./routes/recipeRoutes");
+const ingredientRoutes = require("./routes/ingredientRoutes");
+const shoppingListRoutes = require("./routes/shoppingListRoutes");
 
 app.use("/api/users", userRoutes);
 app.use("/api/companies", companyRoutes);
 app.use("/api/session", sessionRoutes);
 app.use("/api/nlapi", nlapiRoutes);
+app.use("/api/recipes", recipeRoutes);
+app.use("/api/ingredients", ingredientRoutes);
+app.use("/api/shopping-list", shoppingListRoutes);
 
 module.exports = app;
