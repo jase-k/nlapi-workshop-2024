@@ -48,7 +48,7 @@ const swaggerOutputPath = path.join(__dirname, '../swagger.json');
 fs.writeFileSync(swaggerOutputPath, JSON.stringify(swaggerDocs, null, 2), 'utf-8');
 
 // Swagger UI setup
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Middleware to parse JSON
 app.use(express.json());
