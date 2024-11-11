@@ -12,7 +12,7 @@ const CompanyDetails = () => {
   const [companies, setCompanies] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3303/api/companies")
+    fetch("/api/companies")
       .then((response) => response.json())
       .then((data) => setCompanies(data))
       .catch((error) => console.error("Error fetching companies:", error));
