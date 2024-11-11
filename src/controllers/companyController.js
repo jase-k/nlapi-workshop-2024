@@ -1,6 +1,5 @@
 // src/controllers/companyController.js
-const Company = require('../models');
-const User = require('../models'); // Ensure User model is imported
+const { Company, User } = require('../models'); // Ensure User model is imported
 
 // Create a new company
 exports.createCompany = async (req, res) => {
