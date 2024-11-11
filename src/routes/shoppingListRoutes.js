@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const shoppingListController = require('../controllers/shoppingListController');
+const shoppingListItemController = require('../controllers/shoppingListItemController');
 const authenticateToken = require('../middlewares/authenticate');
 
 /**
@@ -34,7 +34,7 @@ const authenticateToken = require('../middlewares/authenticate');
  *       401:
  *         description: Unauthenticated
  */
-router.post('/', authenticateToken, shoppingListController.createShoppingListItem);
+router.post('/', authenticateToken, shoppingListItemController.createShoppingListItem);
 
 /**
  * @swagger
@@ -52,6 +52,6 @@ router.post('/', authenticateToken, shoppingListController.createShoppingListIte
  *               items:
  *                 $ref: '#/components/schemas/ShoppingListItem'
  */
-router.get('/', shoppingListController.getAllShoppingListItems);
+router.get('/', shoppingListItemController.getAllShoppingListItems);
 
 module.exports = router;
