@@ -1,6 +1,6 @@
 // src/controllers/userController.js
 require("dotenv").config();
-const User = require("../models/User");
+const User = require("../models");
 const { fn, col } = require("sequelize");
 
 // Get user profile

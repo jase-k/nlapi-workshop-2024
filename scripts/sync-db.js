@@ -1,22 +1,21 @@
-const sequelize = require("../src/config/database");
+const sequelize = require('../src/config/database');
+const _models = require('../src/models'); // Import all models so they are registered with sequelize
 
-const PORT = process.env.PORT || 3303;
+async function syncDatabase() {
 
-// Test database connection and start server
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log("Database connected...");
-  })
-  .catch((err) => {
-    console.error("Unable to connect to the database:", err);
-  });
+  try {
+    await sequelize.authenticate();
+    console.log('Database connected...');
 
-sequelize
-  .sync({ force: true })
-  .then(() => {
-    console.log("Database & tables synced!");
-  })
-  .catch((err) => {
-    console.error("Unable to sync the database:", err);
-  });
+    // Drop the database
+    await sequelize.drop({ cascade: true, logging: true });
+    console.log('Database dropped...');
+
+    await sequelize.sync({ force: true, alter: true });
+    console.log('Database & tables synced!');
+  } catch (err) {
+    console.error('Unable to sync the database:', err);
+  }
+}
+
+syncDatabase();

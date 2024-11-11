@@ -10,7 +10,7 @@ async function seedDatabase() {
     console.log('Database connected...');
 
     // Clear the database
-    await sequelize.drop({cascade: true});
+    await sequelize.drop({ cascade: true });
     console.log('Database cleared!');
 
     // Sync the models
