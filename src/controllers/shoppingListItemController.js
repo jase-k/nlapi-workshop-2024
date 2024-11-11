@@ -1,4 +1,4 @@
-const ShoppingListItem = require('../models/ShoppingList');
+const { ShoppingListItem } = require('../models');
 
 exports.createShoppingListItem = async (req, res) => {
   try {
