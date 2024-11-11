@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const Company = require('./Company');
-
+const RecipeIngredient = require('./RecipeIngredient');
 /**
  * @swagger
  * components:
@@ -9,19 +9,16 @@ const Company = require('./Company');
  *     ShoppingListItemInput:
  *       type: object
  *       required:
- *         - recipeIngredientId
  *       properties:
- *         id:
- *           type: integer
- *           description: Auto-generated ID
- *         recipeIngredientId:
- *           type: integer
- *           description: ID of the recipe ingredient
- *         isPurchased:
- *           type: boolean
- *           description: Whether the item has been purchased
- *       example:
- *         recipeIngredientId: 1
+ *       oneOf:
+ *         - properties:
+ *             recipeIngredientId:
+ *               type: integer
+ *               description: ID of the recipe ingredient
+ *         - properties:
+ *             recipeId:
+ *               type: integer
+ *               description: ID of the recipe
  *     ShoppingListItem:
  *       type: object
  *       required:
@@ -55,10 +52,6 @@ const Company = require('./Company');
  *         recipes: ["Spaghetti Bolognese", "Tomato Soup"]
  */
 const ShoppingListItem = sequelize.define('shopping_list_items', {
-  recipeIngredientId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
   isPurchased: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
@@ -68,5 +61,7 @@ const ShoppingListItem = sequelize.define('shopping_list_items', {
 
 Company.hasMany(ShoppingListItem, { foreignKey: 'companyId', onDelete: 'CASCADE' });
 ShoppingListItem.belongsTo(Company, { foreignKey: 'companyId', onDelete: 'CASCADE' });
+RecipeIngredient.hasMany(ShoppingListItem, { foreignKey: 'recipeIngredientId', onDelete: 'CASCADE' });
+ShoppingListItem.belongsTo(RecipeIngredient, { foreignKey: 'recipeIngredientId', onDelete: 'CASCADE' });
 
 module.exports = ShoppingListItem;

@@ -12,9 +12,9 @@ const authenticateToken = require('../middlewares/authenticate');
 
 /**
  * @swagger
- * /api/shopping-lists:
+ * /api/shopping-list:
  *   post:
- *     summary: Create a new shopping list item
+ *     summary: Create a new shopping list item from a recipe ingredient. Currently only supports recipe ingredients and/or recipe_id does not support adding ingredients not in a recipe.
  *     tags: [ShoppingLists]
  *     security:
  *       - bearerAuth: []
@@ -24,6 +24,15 @@ const authenticateToken = require('../middlewares/authenticate');
  *         application/json:
  *           schema:
  *             $ref: '#/components/schemas/ShoppingListItemInput'
+ *           examples:
+ *             example1:
+ *               summary: Example with recipeIngredientId
+ *               value:
+ *                 recipeIngredientId: 1
+ *             example2:
+ *               summary: Example with recipeId
+ *               value:
+ *                 recipeId: 10
  *     responses:
  *       201:
  *         description: Shopping list item created successfully
@@ -34,11 +43,11 @@ const authenticateToken = require('../middlewares/authenticate');
  *       401:
  *         description: Unauthenticated
  */
-router.post('/', authenticateToken, shoppingListItemController.createShoppingListItem);
+router.post('', authenticateToken, shoppingListItemController.createShoppingListItem);
 
 /**
  * @swagger
- * /api/shopping-lists:
+ * /api/shopping-list:
  *   get:
  *     summary: Get all shopping list items
  *     tags: [ShoppingLists]
@@ -52,6 +61,28 @@ router.post('/', authenticateToken, shoppingListItemController.createShoppingLis
  *               items:
  *                 $ref: '#/components/schemas/ShoppingListItem'
  */
-router.get('/', shoppingListItemController.getAllShoppingListItems);
+router.get('', authenticateToken, shoppingListItemController.getAllShoppingListItems);
+
+
+/**
+ * @swagger
+ * /api/shopping-list:
+ *   delete:
+ *     summary: Delete all items in user's shopping list
+ *     tags: [ShoppingLists]
+ *     responses:
+ *       200:
+ *         description: All shopping list items deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: Internal server error
+ */
+router.delete('', authenticateToken, shoppingListItemController.deleteAllShoppingListItems);
 
 module.exports = router;
