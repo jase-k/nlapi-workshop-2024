@@ -28,10 +28,14 @@ const bcrypt = require('bcrypt');
  *         companyId:
  *           type: integer
  *           description: ID of the company the user belongs to
+ *         slackId:
+ *           type: string
+ *           description: User's Slack ID
  *       example:
  *         name: Bugs Bunny
  *         email: bugs.bunny@example.com
  *         companyId: 1
+ *         slackId: U0123456789
  *     UserRegister:
  *       type: object
  *       required:
@@ -52,7 +56,7 @@ const bcrypt = require('bcrypt');
  *         email: bugs.bunny@example.com
  *         password: CarrotLover123
  */
-const User = sequelize.define('User', {
+const User = sequelize.define('users', {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -65,6 +69,10 @@ const User = sequelize.define('User', {
   password: {
     type: DataTypes.STRING,
     allowNull: false,
+  },
+  slackId: {
+    type: DataTypes.STRING,
+    allowNull: true,
   },
 });
 

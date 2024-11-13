@@ -118,8 +118,7 @@ my-app/
     This will start the Express server with Nodemon (for hot-reloading) and sync the database with Sequelize models.
 
 6. **Confirm Backend is Working:**
-Navigate to localhost:3303/api-docs and you should see your swagger docs.
-
+Navigate to localhost:3303/api/docs and you should see your swagger docs. 
 
 ### Frontend Setup
 
@@ -137,10 +136,18 @@ Navigate to localhost:3303/api-docs and you should see your swagger docs.
 
 3. **Proxy Configuration:**
 
-    The React app is set up to proxy API requests to the backend. In `client/package.json`, you'll find the following proxy setting:
+    The React app is set up to proxy API requests to the backend. In `client/vite.config.js`, you'll find the following proxy setting:
 
-    ```json
-    "proxy": "http://localhost:3000"
+    ```javascript
+    server: {
+      proxy: {
+        '/api': {
+          target: 'http://localhost:3303', // Backend server
+          changeOrigin: true,
+          secure: false,
+        },
+      },
+    }
     ```
 
     This ensures that requests from the frontend are forwarded to the backend during development.
@@ -148,10 +155,10 @@ Navigate to localhost:3303/api-docs and you should see your swagger docs.
 4. **Start the frontend:**
 
     ```bash
-    npm start
+    npm run dev
     ```
 
-    This will start the React app in development mode and open it in your browser at `http://localhost:3000`.
+    This will start the React app in development mode and open it in your browser at `http://localhost:5173`.
 
 
 ### API Documentation
@@ -167,7 +174,7 @@ The backend API is automatically documented using Swagger. To view the API docum
 2. **Open your browser and navigate to:**
 
     ```bash
-    http://localhost:3303/api-docs
+    http://localhost:5173/api/docs
     ```
 
     Here, you can view and test all the available API endpoints directly from the Swagger UI.

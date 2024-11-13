@@ -34,7 +34,7 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3303/api/session/login", {
+    fetch("/api/session/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),

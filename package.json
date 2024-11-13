@@ -9,7 +9,8 @@
     "sync-db": "node scripts/sync-db.js",
     "kill-port": "npx kill-port 3303",
     "seed": "node scripts/seed.js",
-    "update-application-url": "node scripts/update-application-url.js"
+    "update-application-url": "node scripts/update-application-url.js",
+    "update-schema": "node scripts/update-schema.js"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +28,7 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
+    "form-data": "^4.0.1",
     "nodemon": "^3.1.7"
   }
 }
