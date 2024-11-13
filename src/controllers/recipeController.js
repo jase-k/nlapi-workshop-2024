@@ -3,11 +3,23 @@ const { Op } = require('sequelize');
 
 exports.createRecipe = async (req, res) => {
   try {
-    const { title, instructions } = req.body;
+    const { title, instructions, recipeIngredients } = req.body;
+    if (!recipeIngredients || !Array.isArray(recipeIngredients)) {
+      return res.status(400).json({ error: 'Invalid recipe ingredients' });
+    }
     const recipe = await Recipe.create({ title, instructions });
+    for (const ingredient of recipeIngredients) {
+      let ingredientId = ingredient.ingredientId;
+      if (!ingredientId) {
+        const newIngredient = await Ingredient.create({ name: ingredient.ingredient_name });
+        ingredientId = newIngredient.id;
+      }
+      await RecipeIngredient.create({ ...ingredient, recipeId: recipe.id, ingredientId });
+    }
     res.status(201).json(recipe);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to create recipe' });
+    console.log(error);
+    res.status(500).json({ error: `Failed to create recipe: ${error.message}` });
   }
 };
 
@@ -33,7 +45,7 @@ exports.getRecipeById = async (req, res) => {
     res.status(200).json(recipe);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: 'Failed to retrieve recipe' });
+    res.status(500).json({ error: `Failed to retrieve recipe: ${error.message}` });
   }
 };
 
@@ -48,7 +60,7 @@ exports.updateRecipe = async (req, res) => {
     await recipe.update({ title, instructions });
     res.status(200).json(recipe);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to update recipe' });
+    res.status(500).json({ error: `Failed to update recipe: ${error.message}` });
   }
 };
 
@@ -62,7 +74,7 @@ exports.deleteRecipe = async (req, res) => {
     await recipe.destroy();
     res.status(204).send();
   } catch (error) {
-    res.status(500).json({ error: 'Failed to delete recipe' });
+    res.status(500).json({ error: `Failed to delete recipe: ${error.message}` });
   }
 };
 
@@ -78,6 +90,6 @@ exports.searchRecipes = async (req, res) => {
     });
     res.status(200).json(recipes);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to search recipes' });
+    res.status(500).json({ error: `Failed to search recipes: ${error.message}` });
   }
 };

@@ -27,7 +27,7 @@ const RecipeIngredient = require('./RecipeIngredient');
  *              - $ref: '#/components/schemas/RecipeIngredientInput'
  *       example:
  *         title: Spaghetti Bolognese
- *         recipeIngredients: [{ingredientId: 1, quantity: 2}, {ingredient_name: Tomato, quantity: 200, unitOfMeasure: "grams"}]
+ *         recipeIngredients: [{ingredientId: 1, quantity: 2, unitOfMeasure: "cups"}, {ingredient_name: Tomato, quantity: 200, unitOfMeasure: "grams"}]
  *         instructions: Cook spaghetti, prepare sauce, mix together
  *     Recipe:
  *       type: object
