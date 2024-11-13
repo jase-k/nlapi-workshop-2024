@@ -17,9 +17,19 @@ const RecipeIngredient = require('./RecipeIngredient');
  *         name:
  *           type: string
  *           description: Name of the ingredient
+ *         createdAt:
+ *           type: string
+ *           description: Date and time of creation
+ *           format: date-time
+ *         updatedAt:
+ *           type: string
+ *           description: Date and time of last update
+ *           format: date-time
  *       example:
  *         id: 1
  *         name: Tomato
+ *         createdAt: 2024-01-01T00:00:00.000Z
+ *         updatedAt: 2024-01-01T00:00:00.000Z
  *     IngredientInput:
  *       type: object
  *       required:

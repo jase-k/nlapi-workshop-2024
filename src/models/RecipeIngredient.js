@@ -58,9 +58,10 @@ const sequelize = require('../config/database');
  *     RecipeIngredient:
  *       type: object
  *       required:
- *         - recipe
  *         - ingredient
  *         - quantity
+ *         - unitOfMeasure
+ *         - recipeId
  *       properties:
  *         quantity:
  *           type: string
@@ -69,28 +70,26 @@ const sequelize = require('../config/database');
  *           type: string
  *           description: Unit of measure for the ingredient
  *         ingredient:
- *           type: object
- *           properties:
- *             id:
- *               type: integer
- *               description: ID of the ingredient
- *             name:
- *               type: string
- *               description: Name of the ingredient
- *         recipe:
- *           type: object
- *           properties:
- *             id:
- *               type: integer
- *               description: ID of the recipe
- *             title:
- *               type: string
- *               description: Title of the recipe
+ *           $ref: '#/components/schemas/Ingredient'
+ *         recipeId:
+ *           type: integer
+ *           description: ID of the recipe
+ *         ingredientId:
+ *           type: integer
+ *           description: ID of the ingredient
+ *         createdAt:
+ *           type: string
+ *           description: Date and time of creation
+ *           format: date-time
+ *         updatedAt:
+ *           type: string
+ *           description: Date and time of last update
+ *           format: date-time
  *       example:
  *         quantity: 200
  *         unitOfMeasure: "g"
  *         ingredient: {id: 1, name: "Tomato"}
- *         recipe: {id: 1, title: "Spaghetti Bolognese"}
+ *         recipeId: 1
  */
 const RecipeIngredient = sequelize.define('recipe_ingredients', {
   quantity: {
