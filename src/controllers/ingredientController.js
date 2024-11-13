@@ -1,4 +1,5 @@
 const { Ingredient } = require('../models');
+const { fn, col } = require('sequelize');
 
 exports.createIngredient = async (req, res) => {
   try {
@@ -18,3 +19,22 @@ exports.getAllIngredients = async (req, res) => {
     res.status(500).json({ error: 'Failed to retrieve ingredients' });
   }
 };
+exports.searchIngredients = async (req, res) => {
+  const { query, searchBy = 'name', limit = 3 } = req.query;
+  console.log(query, searchBy, limit);
+  if (!['name'].includes(searchBy)) {
+    return res.status(400).json({ error: 'Invalid searchBy parameter. Use "name".' });
+  }
+
+  try {
+    const searchIngredients = await Ingredient.findAll({
+      order: [[fn("similarity", col(searchBy), query), "DESC"]],
+      limit: parseInt(limit, 10),
+    });
+
+    return res.json(searchIngredients);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: err.message });
+  }
+}

@@ -53,5 +53,47 @@ router.post('/', authenticateToken, ingredientController.createIngredient);
  *                 $ref: '#/components/schemas/Ingredient'
  */
 router.get('/', ingredientController.getAllIngredients);
+/**
+ * @swagger
+ * /api/ingredients/search:
+ *   get:
+ *     summary: Search ingredients
+ *     tags: [Ingredients]
+ *     parameters:
+ *       - in: query
+ *         name: query
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The search query
+ *       - in: query
+ *         name: searchBy
+ *         required: false
+ *         schema:
+ *           type: string
+ *           enum: [name]
+ *         description: The field to search by (default is 'name')
+ *       - in: query
+ *         name: limit
+ *         required: false
+ *         schema:
+ *           type: integer
+ *           default: 3
+ *         description: The maximum number of results to return
+ *     responses:
+ *       200:
+ *         description: A list of matching Ingredient objects
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Ingredient'
+ *       400:
+ *         description: Invalid searchBy parameter
+ *       500:
+ *         description: Failed to search ingredients
+ */
+router.get('/search', ingredientController.searchIngredients);
 
 module.exports = router;
