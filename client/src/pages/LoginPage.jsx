@@ -42,7 +42,12 @@ const LoginPage = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Login successful:", data);
-        navigate("/dashboard");
+        if (data.token) {
+          localStorage.setItem('accessToken', data.token);
+          navigate("/dashboard");
+        } else {
+          alert("Invalid email or password");
+        }
       })
       .catch((error) => {
         console.error("Login failed:", error);
