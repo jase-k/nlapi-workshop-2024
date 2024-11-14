@@ -65,6 +65,7 @@ const nlapiRoutes = require("./routes/nlapiRoutes");
 const recipeRoutes = require("./routes/recipeRoutes");
 const ingredientRoutes = require("./routes/ingredientRoutes");
 const shoppingListItemRoutes = require("./routes/shoppingListItemRoutes");
+const slackRoutes = require("./routes/slackRoutes");
 
 app.use("/api/users", userRoutes);
 app.use("/api/companies", companyRoutes);
@@ -73,5 +74,6 @@ app.use("/api/nlapi", nlapiRoutes);
 app.use("/api/recipes", recipeRoutes);
 app.use("/api/ingredients", ingredientRoutes);
 app.use("/api/shopping-list", shoppingListItemRoutes);
+app.use("/api/slack", slackRoutes);
 
 module.exports = app;

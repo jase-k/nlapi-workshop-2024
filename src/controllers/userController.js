@@ -11,7 +11,10 @@ exports.getProfile = async (req, res) => {
     });
     if (!user) return res.status(404).json({ error: 'User not found' });
 
-    res.json(user);
+    res.json({
+      ...user.toJSON(),
+      slackConnected: !!user.slackId, // Add a flag to indicate Slack connection
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
