@@ -15,9 +15,9 @@ const swaggerOptions = {
     swaggerDefinition: {
       openapi: '3.0.0',
       info: {
-        title: 'My Sample App API',
+        title: 'My Recipe App API',
         version: '1.0.0',
-        description: 'API documentation for My Sample App',
+        description: 'API documentation for My Recipe App',
       },
       servers: [
         {
@@ -62,10 +62,16 @@ const userRoutes = require("./routes/userRoutes");
 const companyRoutes = require("./routes/companyRoutes");
 const sessionRoutes = require("./routes/sessionRoutes");
 const nlapiRoutes = require("./routes/nlapiRoutes");
+const recipeRoutes = require("./routes/recipeRoutes");
+const ingredientRoutes = require("./routes/ingredientRoutes");
+const shoppingListItemRoutes = require("./routes/shoppingListItemRoutes");
 
 app.use("/api/users", userRoutes);
 app.use("/api/companies", companyRoutes);
 app.use("/api/session", sessionRoutes);
 app.use("/api/nlapi", nlapiRoutes);
+app.use("/api/recipes", recipeRoutes);
+app.use("/api/ingredients", ingredientRoutes);
+app.use("/api/shopping-list", shoppingListItemRoutes);
 
 module.exports = app;
