@@ -108,7 +108,7 @@ const Recipe = sequelize.define('recipes', {
 });
 
 Recipe.hasMany(RecipeIngredient, { foreignKey: 'recipeId' });
-RecipeIngredient.belongsTo(Recipe);
+RecipeIngredient.belongsTo(Recipe, { foreignKey: 'recipeId', as: 'Recipe' });
 
 
 module.exports = Recipe;

@@ -27,16 +27,17 @@ exports.createShoppingListItem = async (req, res) => {
 
 exports.getAllShoppingListItems = async (req, res) => {
   try {
-    const shoppingListItems = await ShoppingListItem.findAll({ where: { companyId: req.user.companyId } });
-    shoppingListItems.forEach(async (shoppingListItem) => {
-      const recipeIngredient = await RecipeIngredient.findByPk(shoppingListItem.recipeIngredientId);
-      console.log("recipeIngredient", recipeIngredient);
-      shoppingListItem["recipeIngredient"] = recipeIngredient;
+    const shoppingListItems = await ShoppingListItem.findAll({
+      where: { companyId: req.user.companyId },
+      include: {
+        model: RecipeIngredient,
+        include: ['Ingredient', 'Recipe']
+      }
     });
     res.status(200).json(shoppingListItems);
   } catch (error) {
     console.error("Error in getAllShoppingListItems", error);
-    res.status(500).json({ error: 'Failed to retrieve shopping list items' });
+    res.status(500).json({ error: `Failed to retrieve shopping list items: ${error}` });
   }
 };
 

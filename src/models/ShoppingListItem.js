@@ -23,33 +23,120 @@ const RecipeIngredient = require('./RecipeIngredient');
  *       type: object
  *       required:
  *         - recipeIngredientId
+ *         - isPurchased
+ *         - createdAt
+ *         - updatedAt
+ *         - companyId
  *       properties:
  *         id:
  *           type: integer
  *           description: Auto-generated ID
- *         ingredientName:
- *           type: string
- *           description: Name of the ingredient
- *         quantity:
- *           type: string
- *           description: Quantity of the ingredient
- *         unitOfMeasure:
- *           type: string
- *           description: Unit of measure for the ingredient
  *         isPurchased:
  *           type: boolean
  *           description: Whether the item has been purchased
- *         recipes:
- *           type: array
- *           description: Recipes that contain the ingredient
- *           items:
- *             type: string
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           description: Date and time of creation
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           description: Date and time of last update
+ *         companyId:
+ *           type: integer
+ *           description: ID of the company
+ *         recipeIngredientId:
+ *           type: integer
+ *           description: ID of the recipe ingredient
+ *         recipe_ingredient:
+ *           type: object
+ *           properties:
+ *             id:
+ *               type: integer
+ *               description: Auto-generated ID
+ *             quantity:
+ *               type: number
+ *               description: Quantity of the ingredient
+ *             unitOfMeasure:
+ *               type: string
+ *               description: Unit of measure for the ingredient
+ *             createdAt:
+ *               type: string
+ *               format: date-time
+ *               description: Date and time of creation
+ *             updatedAt:
+ *               type: string
+ *               format: date-time
+ *               description: Date and time of last update
+ *             recipeId:
+ *               type: integer
+ *               description: ID of the recipe
+ *             ingredientId:
+ *               type: integer
+ *               description: ID of the ingredient
+ *             Ingredient:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   description: Auto-generated ID
+ *                 name:
+ *                   type: string
+ *                   description: Name of the ingredient
+ *                 createdAt:
+ *                   type: string
+ *                   format: date-time
+ *                   description: Date and time of creation
+ *                 updatedAt:
+ *                   type: string
+ *                   format: date-time
+ *                   description: Date and time of last update
+ *             Recipe:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   description: Auto-generated ID
+ *                 title:
+ *                   type: string
+ *                   description: Title of the recipe
+ *                 instructions:
+ *                   type: string
+ *                   description: Cooking instructions
+ *                 createdAt:
+ *                   type: string
+ *                   format: date-time
+ *                   description: Date and time of creation
+ *                 updatedAt:
+ *                   type: string
+ *                   format: date-time
+ *                   description: Date and time of last update
  *       example:
- *         ingredientName: Tomato
- *         quantity: 300
- *         unitOfMeasure: "g"
+ *         id: 1
  *         isPurchased: false
- *         recipes: ["Spaghetti Bolognese", "Tomato Soup"]
+ *         createdAt: "2024-11-14T12:06:58.268Z"
+ *         updatedAt: "2024-11-14T12:06:58.268Z"
+ *         companyId: 1
+ *         recipeIngredientId: 9
+ *         recipe_ingredient:
+ *           id: 9
+ *           quantity: 500
+ *           unitOfMeasure: "grams"
+ *           createdAt: "2024-11-14T11:54:21.801Z"
+ *           updatedAt: "2024-11-14T11:54:21.801Z"
+ *           recipeId: 2
+ *           ingredientId: 1
+ *           Ingredient:
+ *             id: 1
+ *             name: "Tomato"
+ *             createdAt: "2024-11-14T11:54:21.797Z"
+ *             updatedAt: "2024-11-14T11:54:21.797Z"
+ *           Recipe:
+ *             id: 2
+ *             title: "Tomato Soup"
+ *             instructions: "Cook tomatoes, blend, season, and serve"
+ *             createdAt: "2024-11-14T11:54:21.799Z"
+ *             updatedAt: "2024-11-14T11:54:21.799Z"
  */
 const ShoppingListItem = sequelize.define('shopping_list_items', {
   isPurchased: {
