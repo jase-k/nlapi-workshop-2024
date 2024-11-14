@@ -86,10 +86,8 @@ export default function Component() {
         const data = await response.json();
         console.log('Response from NLAPI:', data);
 
-        // // Store each endpoint in the store
-        // if (data.endpoints && data.endpoints.path) {
-        //   data.endpoints.path.forEach((endpoint) => setEndpoints(endpoint));
-        // }
+        const endpointsCalled = data.endpoints_called.map(endpoint => endpoint.path);
+        setEndpoints(endpointsCalled);
 
         setMessages(data.messages.reverse());
         setThreadId(data.thread_id);

@@ -19,6 +19,7 @@ const ShoppingList = () => {
     queryKey: ['shoppingList'],
     queryFn: fetchShoppingListItems
   });
+  console.log("Shopping list items:", items);
   
   useEffect(() => {
     const endpointsToCheck = ['/api/shopping-list'];
@@ -42,7 +43,10 @@ const ShoppingList = () => {
       <List>
         {items.map((item, index) => (
           <ListItem key={index}>
-            <ListItemText primary={item.name} secondary={`Quantity: ${item.quantity}`} />
+            <ListItemText 
+              primary={`${item.recipe_ingredient.Ingredient.name} (${item.recipe_ingredient.quantity} ${item.recipe_ingredient.unitOfMeasure})`} 
+              secondary={`Recipe: ${item.recipe_ingredient.Recipe.title}`} 
+            />
           </ListItem>
         ))}
       </List>
