@@ -75,6 +75,10 @@ const handleSlackWebhook = async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
     // Call the NLAPI controller with the user's JWT token and Slack text
     const nlapiResponse = await sendNlapiRequest({
       body: {
@@ -83,7 +87,7 @@ const handleSlackWebhook = async (req, res) => {
         threadId: null, // Add thread ID if needed
       },
       headers: {
-        authorization: `Bearer ${user.jwtToken}`,
+        authorization: `Bearer ${token}`,
       },
     });
 
