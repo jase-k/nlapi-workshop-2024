@@ -2,6 +2,7 @@
 import { Container, Typography, Box, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CompanyDetails from "../components/CompanyDetails";
+import ShoppingList from "../components/ShoppingList";
 import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -36,6 +37,7 @@ const DashboardPage = () => {
           </Button>
         </Box>
         <CompanyDetails />
+        <ShoppingList />
         </Box>
       </Container>
     </>

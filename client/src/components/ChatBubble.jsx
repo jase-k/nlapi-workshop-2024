@@ -15,6 +15,8 @@ import {
   Refresh as RefreshIcon,
 } from '@mui/icons-material'
 
+import useEndpointStore  from '../store/endpointStore';
+
 const ChatContainer = styled(Paper)(({ theme }) => ({
   position: 'fixed',
   bottom: theme.spacing(2),
@@ -48,6 +50,7 @@ const ChatInput = styled('form')(({ theme }) => ({
 }))
 
 export default function Component() {
+  const { setEndpoints } = useEndpointStore();
   const [isExpanded, setIsExpanded] = useState(false)
   const [message, setMessage] = useState('')
   const [messages, setMessages] = useState([])
@@ -82,6 +85,11 @@ export default function Component() {
         }
         const data = await response.json();
         console.log('Response from NLAPI:', data);
+
+        // // Store each endpoint in the store
+        // if (data.endpoints && data.endpoints.path) {
+        //   data.endpoints.path.forEach((endpoint) => setEndpoints(endpoint));
+        // }
 
         setMessages(data.messages.reverse());
         setThreadId(data.thread_id);

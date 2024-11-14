@@ -6,7 +6,7 @@ const sendNlapiRequest = async (req, res) => {
 
   console.log(userInput, context, threadId);
   try {
-    const response = await fetch("https://api.nlapi.io/nlapi", {
+    const response = await fetch("http://localhost:5000/nlapi", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
